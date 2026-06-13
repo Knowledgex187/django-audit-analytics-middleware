@@ -1,4 +1,4 @@
-# django-audit-analytics-middleware
+# django-analytics-middleware
 
 **One middleware. Audit logs for compliance. Analytics for product.**
 
