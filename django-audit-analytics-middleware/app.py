@@ -69,6 +69,13 @@ class AnalyticsMiddlewareConfig(AppConfig):
                     f"Either fix permissions or change ANALYTICS_LOG_PATH within settings.py."
                 )
 
+        # Tries to write to log to test permissions
+        try:
+            with open(log_path, "a") as test_file:
+                test_file.write("")
+        except PermissionError:
+            raise ImproperlyConfigured("Can't write to log file")
+
         # Retrieves noise paths list from settings.py
         noise_paths = getattr(settings, "ANALYTICS_NOISE_PATHS", None)
         if noise_paths is None:
