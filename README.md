@@ -59,17 +59,19 @@ ANALYTICS_LOG_PATH = os.path.join(BASE_DIR, 'logs', 'analytics.log')
 ANALYTICS_LOG_PATH = ANALYTICS_LOG_PATH=<env_handler>(<LOG PATH>)
 
 Configuration
+
 Required Settings
 Setting	Description	Example
-ANALYTICS_LOG_PATH	Where to write log files	os.path.join(BASE_DIR, 'logs', 'analytics.log')
+ANALYTICS_LOG_PATH	Where to write log files - os.path.join(BASE_DIR, 'logs', 'analytics.log')
+
+
 Optional Settings
 Setting	Default	Description
 ANALYTICS_NOISE_PATHS	['/health', '/admin', '/favicon.ico']	Paths to skip logging
-ANALYTICS_LOG_LEVEL	'WARNING'	Logging level for the package
+ANALYTICS_LOG_LEVEL	'WARNING'	# Logging level for the package
 
 
 # Example settings.py
-
 # Required
 ANALYTICS_LOG_PATH = os.path.join(BASE_DIR, 'logs', 'analytics.log')
 
@@ -121,4 +123,4 @@ hour	         string	    Hour in 24-hour format (00-23)
 
 ## License
 
-MIT – because audit logs shouldn't be paywalled.
+MIT – Because audit logs shouldn't be paywalled.
