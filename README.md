@@ -4,7 +4,7 @@
 
 ## Status: 🏗️ Building in public
 
-This package is under active development. I'm posting every step on LinkedIn.
+This package is under continuous development.
 
 ## What it will do (already working locally)
 
