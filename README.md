@@ -4,7 +4,7 @@
 
 ## Status: 🏗️ Building in public
 
-This package is under continuous development.
+This package is under continuous development. And in production.
 
 ## What it will do (already working locally)
 
