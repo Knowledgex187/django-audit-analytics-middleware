@@ -1,0 +1,20 @@
+# Python build artifacts
+*.egg-info/
+*.egg
+dist/
+build/
+__pycache__/
+*.pyc
+
+# Package metadata
+PKG-INFO
+SOURCES.txt
+dependency_links.txt
+requires.txt
+top_level.txt
+
+# Test and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+*=2.2
