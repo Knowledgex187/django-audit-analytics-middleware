@@ -14,7 +14,18 @@ class AnalyticsMiddlewareConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
 
     def ready(self):
-        pass
+        """
+        Called once when Django starts
+        """
+        if self._is_running_management_command():
+            return
+
+        #Validation Configuration
+        self._validate_configuration()
+        self._setup_package_logging()
+        
+        logger = logging.getLogger(__name__)
+        logger.info("Analytics middleware initiated successfully")
 
     """Check if Django is running a command"""
 
@@ -41,7 +52,8 @@ class AnalyticsMiddlewareConfig(AppConfig):
                 "Example: ANALYTICS_LOG_PATH = os.path.join(BASEDIR, 'logs', 'analytics.log')\n"
                 "Or in .env ANALYTICS_LOG_PATH=<LOG PATH>"
                 )
-        
+
+        """Test directory actually exists and create"""
         log_dir = os.path.dirname(log_path)
         if log_dir and not os.path.exists(log_dir):
             try:
@@ -53,3 +65,30 @@ class AnalyticsMiddlewareConfig(AppConfig):
                     f"Analytics middleware: Cannot create directory '{log_dir}'."
                     f"Either fix permissions or change ANALYTICS_LOG_PATH within settings.py."
                 )
+
+        # Retrieves noise paths list from settings.py
+        noise_paths = getattr(settings, "ANALYTICS_NOISE_PATHS", ["/health", "/admin", "/favicon.ico"])
+        if not noise_paths:
+            print("No noise path field discovered within settings.py.")
+            print(f"Default noise paths used: {noise_paths}")
+
+    def _setup_package_logging(self):
+        """Configure logging"""
+        
+        log_level_name = getattr(settings, "ANALYTICS_LOG_LEVEL", "WARNING")
+        log_level = getattr(logging, log_level_name.upper(), logging.warning)
+
+        # Configure package logger
+        logger = logging.getLogger(__name__)
+        logger.setLevel(log_level)
+
+        # Dont add handlers if already configured
+        if not logger.handlers:
+            handler = logging.StreamHandler()
+            formatter = logging.Formatter(
+                "[%(asctime)s] %(levelname)s: %(message)s",
+                datefmt="%d-%m-%Y %H:%M:%S"
+            )
+            handler.setFormatter(formatter)
+            logger.addHandler(handler)
+
