@@ -73,7 +73,7 @@ class AnalyticsMiddlewareConfig(AppConfig):
         noise_paths = getattr(settings, "ANALYTICS_NOISE_PATHS", None)
         if noise_paths is None:
             print("No noise path field discovered within settings.py.")
-            print(f"Default noise paths used: {noise_paths}")
+            print("Using default noise paths: /health, /admin, /favicon.ico")
             noise_paths = ["/health", "/admin", "/favicon.ico"]  # Set default
 
     def _setup_package_logging(self):
